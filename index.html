@@ -6,15 +6,19 @@
 <body>
   <button id="login">Login with Google</button>
 
-  <script type="module">
-    import { Web3Auth } from "https://cdn.jsdelivr.net/npm/@web3auth/modal/+esm";
+  <script src="https://cdn.jsdelivr.net/npm/@web3auth/modal"></script>
 
-    const web3auth = new Web3Auth({
+  <script>
+    const web3auth = new window.Web3Auth({
       clientId: "BEc5hIVJBZNTtKzNJ04Lhnq88lYTQlbs2wUhBf10eHr4vpY1SHQnajAON9Rl5dzvqat43GIYcgUt4KN1xJ0GLW8",
       web3AuthNetwork: "sapphire_devnet",
     });
 
-    await web3auth.initModal();
+    async function init() {
+      await web3auth.initModal();
+    }
+
+    init();
 
     document.getElementById("login").onclick = async () => {
       const provider = await web3auth.connect();
