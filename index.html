@@ -1,110 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Authentication Demo</title>
-    <link rel="stylesheet" href="styles.css">
+  <title>Web3Auth Test</title>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Auth Banking</h1>
-            <p>Secure Online Banking Portal</p>
-        </header>
+  <button id="login">Login with Google</button>
 
-        <div id="loginSection" class="auth-section">
-            <h2>Login</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit">Login</button>
-            </form>
-            <p><a href="#" onclick="showRegister()">Don't have an account? Register</a></p>
-            <p><a href="#" onclick="showReset()">Forgot Password?</a></p>
-        </div>
+  <script type="module">
+    import { Web3Auth } from "https://cdn.jsdelivr.net/npm/@web3auth/modal/+esm";
 
-        <div id="registerSection" class="auth-section" style="display:none;">
-            <h2>Register</h2>
-            <form id="registerForm">
-                <div class="form-group">
-                    <label for="regUsername">Username:</label>
-                    <input type="text" id="regUsername" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="regEmail">Email:</label>
-                    <input type="email" id="regEmail" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="regPassword">Password:</label>
-                    <input type="password" id="regPassword" name="password" required>
-                </div>
-                <button type="submit">Register</button>
-            </form>
-            <p><a href="#" onclick="showLogin()">Already have an account? Login</a></p>
-        </div>
+    const web3auth = new Web3Auth({
+      clientId: "YOUR_REAL_CLIENT_ID",
+      web3AuthNetwork: "sapphire_devnet",
+    });
 
-        <div id="resetSection" class="auth-section" style="display:none;">
-            <h2>Reset Password</h2>
-            <form id="resetForm">
-                <div class="form-group">
-                    <label for="resetUsername">Username:</label>
-                    <input type="text" id="resetUsername" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="securityQuestion">What is your favorite color?</label>
-                    <input type="text" id="securityQuestion" name="securityAnswer" required>
-                </div>
-                <button type="submit">Reset Password</button>
-            </form>
-            <p><a href="#" onclick="showLogin()">Back to Login</a></p>
-        </div>
+    await web3auth.initModal();
 
-        <div id="dashboardSection" class="dashboard" style="display:none;">
-            <h2>Welcome to Your Dashboard</h2>
-            <div class="user-info">
-                <p><strong>Logged in as:</strong> <span id="currentUser"></span></p>
-                <p><strong>User ID:</strong> <span id="userId"></span></p>
-                <p><strong>Account Balance:</strong> $<span id="balance">1000.00</span></p>
-            </div>
-            
-            <div class="admin-section" id="adminPanel" style="display:none;">
-                <h3>Admin Panel</h3>
-                <button onclick="viewAllUsers()">View All Users</button>
-                <div id="usersList"></div>
-            </div>
-
-            <div class="actions">
-                <h3>Account Actions</h3>
-                <button onclick="viewProfile()">View Profile</button>
-                <button onclick="changePassword()">Change Password</button>
-                <button onclick="logout()">Logout</button>
-            </div>
-
-            <div id="profileSection" style="display:none;">
-                <h3>User Profile</h3>
-                <div id="profileData"></div>
-                <form id="profileForm">
-                    <div class="form-group">
-                        <label for="newEmail">Email:</label>
-                        <input type="email" id="newEmail" name="email">
-                    </div>
-                    <button type="submit">Update Profile</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p>© 2025  Banking - Demo Application with Authentication Flaws</p>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
+    document.getElementById("login").onclick = async () => {
+      const provider = await web3auth.connect();
+      console.log("Connected:", provider);
+    };
+  </script>
 </body>
 </html>
