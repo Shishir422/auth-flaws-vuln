@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Web3Auth Test</title>
-</head>
 <body>
-  <button id="login">Login with Google Bro</button>
 
-  <script type="module">
-    import { Web3Auth } from "https://unpkg.com/@web3auth/modal@latest/dist/modal.esm.js";
+<button id="login">Login with Google yo</button>
 
-    const web3auth = new Web3Auth({
-      clientId: "BEc5hIVJBZNTtKzNJ04Lhnq88lYTQlbs2wUhBf10eHr4vpY1SHQnajAON9Rl5dzvqat43GIYcgUt4KN1xJ0GLW8",
-      web3AuthNetwork: "sapphire_devnet",
-    });
+<script type="module">
+  console.log("Script started");
 
-    await web3auth.initModal();
+  import { Web3Auth } from "https://unpkg.com/@web3auth/modal@latest/dist/modal.esm.js";
 
-    document.getElementById("login").addEventListener("click", async () => {
-      try {
-        const provider = await web3auth.connect();
-        console.log("Connected:", provider);
-      } catch (err) {
-        console.error("Login error:", err);
-      }
-    });
-  </script>
+  console.log("Import loaded");
+
+  const web3auth = new Web3Auth({
+    clientId: "BEc5hIVJBZNTtKzNJ04Lhnq88lYTQlbs2wUhBf10eHr4vpY1SHQnajAON9Rl5dzvqat43GIYcgUt4KN1xJ0GLW8",
+    web3AuthNetwork: "sapphire_devnet",
+  });
+
+  console.log("Web3Auth instance created");
+
+  await web3auth.initModal();
+
+  console.log("Modal initialized");
+
+  document.getElementById("login").addEventListener("click", async () => {
+    console.log("Button clicked");
+    try {
+      await web3auth.connect();
+      console.log("Connected");
+    } catch (e) {
+      console.error("Error:", e);
+    }
+  });
+</script>
+
 </body>
 </html>
